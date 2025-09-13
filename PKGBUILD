@@ -1,6 +1,6 @@
 # Maintainer: Kartofi <kartofdev@gmail.com>
 pkgname=korki
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="Simple emoji picker for hyprland people"
 arch=('x86_64')
