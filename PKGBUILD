@@ -6,9 +6,9 @@ pkgdesc="Simple emoji picker for hyprland people"
 arch=('x86_64')
 url="https://github.com/Kartofi/korki"
 license=('MIT' 'Apache') # Adjust based on your actual license
-depends=()
+depends=('gtk4')
 makedepends=('cargo' 'git')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Kartofi/korki/archive/v$pkgver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Kartofi/korki/archive/refs/tags/v$pkgver.tar.gz")
 sha256sums=('SKIP') # Replace with actual checksum later
 
 prepare() {

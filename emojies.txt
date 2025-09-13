@@ -1679,23 +1679,23 @@
 🆘 SOS Button
 🆙 UP! Button
 🆚 VS Button
-🈁 Japanese “here” Button
-🈂️ Japanese “service Charge” Button
-🈷️ Japanese “monthly Amount” Button
-🈶 Japanese “not Free Of Charge” Button
-🈯 Japanese “reserved” Button
-🉐 Japanese “bargain” Button
-🈹 Japanese “discount” Button
-🈚 Japanese “free Of Charge” Button
-🈲 Japanese “prohibited” Button
-🉑 Japanese “acceptable” Button
-🈸 Japanese “application” Button
-🈴 Japanese “passing Grade” Button
-🈳 Japanese “vacancy” Button
-㊗️ Japanese “congratulations” Button
-㊙️ Japanese “secret” Button
-🈺 Japanese “open For Business” Button
-🈵 Japanese “no Vacancy” Button
+🈁 Japanese <here> Button
+🈂️ Japanese <service Charge> Button
+🈷️ Japanese <monthly Amount> Button
+🈶 Japanese <not Free Of Charge> Button
+🈯 Japanese <reserved> Button
+🉐 Japanese <bargain> Button
+🈹 Japanese <discount> Button
+🈚 Japanese <free Of Charge> Button
+🈲 Japanese <prohibited> Button
+🉑 Japanese <acceptable> Button
+🈸 Japanese <application> Button
+🈴 Japanese <passing Grade> Button
+🈳 Japanese <vacancy> Button
+㊗️ Japanese <congratulations> Button
+㊙️ Japanese <secret> Button
+🈺 Japanese <open For Business> Button
+🈵 Japanese <no Vacancy> Button
 🟡 Geometric
 🔴 Red Circle
 🟠 Orange Circle
