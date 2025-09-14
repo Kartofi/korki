@@ -91,9 +91,8 @@ pub fn load_emojis(emojis: &mut Vec<Emoji>, data: &str) {
         }
 
         let parts = line.split_once(" ").unwrap_or_default();
-        let sanitized_name = parts.1.replace("&", "and");
 
-        emojis.push(Emoji::new(&sanitized_name, parts.0));
+        emojis.push(Emoji::new(parts.1, parts.0));
     }
 }
 pub fn load_recent_emojis(recent_emojis: &mut Vec<Emoji>) {

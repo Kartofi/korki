@@ -173,7 +173,7 @@ fn keyboard_events(window: &ApplicationWindow, state: Arc<Mutex<State>>) {
     });
     keyboard_event.connect_key_released(move |_, key, _, _| {
         let mut state = state_clone.lock().unwrap();
-        
+
         // Focus on text box
         let arc_text_box = state.text_box.clone().unwrap();
         let text_box = arc_text_box.lock().unwrap();

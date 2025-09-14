@@ -435,9 +435,9 @@
 🦹 Supervillain
 🦹‍♂️ Man Supervillain
 🦹‍♀️ Woman Supervillain
-🧙 Mage
-🧙‍♂️ Man Mage
-🧙‍♀️ Woman Mage
+🧙 Mage/Wizard
+🧙‍♂️ Man Mage/Wizard
+🧙‍♀️ Woman Mage/Wizard
 🧚 Fairy
 🧚‍♂️ Man Fairy
 🧚‍♀️ Woman Fairy
