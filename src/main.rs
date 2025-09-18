@@ -10,7 +10,7 @@ mod ui_options;
 mod utils;
 
 fn main() {
-    let application = gtk4::Application::new(Some("sh.wmww.gtk-layer-example"), Default::default());
+    let application = gtk4::Application::new(Some("in.kartof.korki"), Default::default());
 
     application.connect_activate(|app| {
         utils::load_css();
