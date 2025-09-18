@@ -8,9 +8,8 @@ pub const STYLES_CSS: &str = include_str!("../styles.css");
 
 pub fn update_entries(
     query: &str,
-    selected_index: &usize,
-    emojis: &[Emoji],
-    entries_box: &MutexGuard<'_, gtk4::Box>,
+       emojis: &[Emoji],
+    entries_box: &MutexGuard<'_, gtk4::ListBox>,
 ) -> Vec<Emoji> {
     let tokens: Vec<&str> = query.split(" ").collect();
 
@@ -44,11 +43,8 @@ pub fn update_entries(
             name = name.split_at(ui_options::MAX_EMOJI_NAME - 1).0.to_string() + "...";
         }
         let label = gtk4::Label::new(Some(&format!("{} - {}", emoji.1.emoji, name)));
-        if &i == selected_index {
-            label.add_css_class("entry-selected");
-        } else {
-            label.add_css_class("entry");
-        }
+                   label.add_css_class("entry");
+      
 
         entries_box.append(&label);
 
@@ -56,27 +52,6 @@ pub fn update_entries(
         result.push(emoji);
     }
     result
-}
-pub fn update_selected(
-    old_selected_index: &usize,
-    selected_index: &usize,
-    entries_box: &MutexGuard<'_, gtk4::Box>,
-) {
-    entries_box
-        .observe_children()
-        .item(old_selected_index.to_owned() as u32)
-        .unwrap()
-        .downcast::<gtk4::Widget>()
-        .unwrap()
-        .set_css_classes(&["entry"]);
-
-    entries_box
-        .observe_children()
-        .item(selected_index.to_owned() as u32)
-        .unwrap()
-        .downcast::<gtk4::Widget>()
-        .unwrap()
-        .set_css_classes(&["entry-selected"]);
 }
 
 pub fn load_emojis(emojis: &mut Vec<Emoji>, data: &str) {

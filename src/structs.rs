@@ -5,13 +5,13 @@ pub struct State {
 
     pub results: Vec<Emoji>,
 
-    pub selected_index: usize,
+
 
     pub emojis: Vec<Emoji>,
 
     pub recent_emojis: Vec<Emoji>,
 
-    pub entries_box: Option<Arc<Mutex<gtk4::Box>>>,
+    pub entries_box: Option<Arc<Mutex<gtk4::ListBox>>>,
     pub text_box: Option<Arc<Mutex<gtk4::Text>>>,
 }
 impl State {
@@ -19,8 +19,7 @@ impl State {
         State {
             query: "".to_string(),
             results: Vec::new(),
-            selected_index: 0,
-
+           
             emojis: Vec::new(),
             recent_emojis: Vec::new(),
 

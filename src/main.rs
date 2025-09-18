@@ -61,8 +61,9 @@ fn build_ui(app: &Application, state: Arc<Mutex<State>>) -> ApplicationWindow {
 
     entries.set_size_request(ui_options::WIDTH, 435);
 
-    let entries_box = gtk4::Box::new(gtk4::Orientation::Vertical, ui_options::MARGIN);
+    let entries_box = gtk4::ListBox::new();
     entries_box.add_css_class("entries-box");
+    entries_box.set_selection_mode(gtk4::SelectionMode::Single);
 
     entries.set_child(Some(&entries_box));
 
@@ -74,7 +75,7 @@ fn build_ui(app: &Application, state: Arc<Mutex<State>>) -> ApplicationWindow {
 
         let entries_box = arc_entries_box.lock().unwrap();
 
-        let results = utils::update_entries("", &0, &state.recent_emojis, &entries_box);
+        let results = utils::update_entries("", &state.recent_emojis, &entries_box);
         state.results = results;
     }
 
@@ -96,18 +97,13 @@ fn build_ui(app: &Application, state: Arc<Mutex<State>>) -> ApplicationWindow {
         let entries_box = arc_entries_box.lock().unwrap();
 
         let results = if query.is_empty() {
-            utils::update_entries(
-                "",
-                &state.selected_index,
-                &state.recent_emojis,
-                &entries_box,
-            )
+            utils::update_entries("", &state.recent_emojis, &entries_box)
         } else {
-            utils::update_entries(&query, &state.selected_index, &state.emojis, &entries_box)
+            utils::update_entries(&query, &state.emojis, &entries_box)
         };
 
         state.results = results;
-        state.selected_index = 0;
+
         state.query = query.clone();
     });
 
@@ -128,63 +124,63 @@ fn keyboard_events(window: &ApplicationWindow, state: Arc<Mutex<State>>) {
     let state_clone = state.clone();
 
     keyboard_event.connect_key_pressed(move |_, key, _, _| {
+        let grab_focus_entries = || {
+            // Focus on select
+            let state = state.lock().unwrap();
+
+            let arc_entries_box = state.entries_box.clone().unwrap();
+            let entries_box = arc_entries_box.lock().unwrap();
+
+            if state.results.is_empty() {
+                return;
+            }
+
+            entries_box.row_at_index(0).unwrap().grab_focus();
+        };
+
         match key.name().unwrap_or_default().to_lowercase().as_str() {
             "escape" => {
                 // Exit on escape
                 std::process::exit(0);
             }
             "up" => {
-                // Move select
-                let mut state = state.lock().unwrap();
-                if state.selected_index == 0 {
-                    return false.into();
-                }
-                state.selected_index -= 1;
-
-                let entries_box_arc = state.entries_box.clone().unwrap();
-                let entries_box = entries_box_arc.lock().unwrap();
-
-                utils::update_selected(
-                    &(state.selected_index + 1),
-                    &state.selected_index,
-                    &entries_box,
-                );
+                grab_focus_entries();
             }
             "down" => {
-                // Move select
-                let mut state = state.lock().unwrap();
-                if state.selected_index + 1 >= state.results.len() {
-                    return false.into();
-                }
-                state.selected_index += 1;
-
-                let entries_box_arc = state.entries_box.clone().unwrap();
-                let entries_box = entries_box_arc.lock().unwrap();
-
-                utils::update_selected(
-                    &(state.selected_index - 1),
-                    &state.selected_index,
-                    &entries_box,
-                );
+                grab_focus_entries();
             }
-            _ => {}
+            _ => {
+                // Focus on text_box
+                let state = state.lock().unwrap();
+
+                let text_box_arc = state.text_box.clone().unwrap();
+                let text_box = text_box_arc.lock().unwrap();
+
+                text_box.grab_focus();
+            }
         }
         false.into()
     });
+
     keyboard_event.connect_key_released(move |_, key, _, _| {
         let mut state = state_clone.lock().unwrap();
 
-        // Focus on text box
-        let arc_text_box = state.text_box.clone().unwrap();
-        let text_box = arc_text_box.lock().unwrap();
-
-        if !text_box.has_focus() {
-            text_box.grab_focus();
-        }
-
         // Check if enter is pressed
         if key.name().unwrap_or_default().to_lowercase() == "return" {
-            let emoji = state.results[state.selected_index].clone();
+            let arc_entries_box = state.entries_box.clone().unwrap();
+            let entries_box = arc_entries_box.lock().unwrap();
+
+            let index = if let Some(selected_row) = entries_box.selected_row() {
+                selected_row.index()
+            } else {
+                -1
+            };
+
+            if index == -1 {
+                return;
+            }
+
+            let emoji = state.results[index as usize].clone();
             utils::write_to_clipboard(&emoji.emoji);
 
             state.recent_emojis.insert(0, emoji);
@@ -194,5 +190,6 @@ fn keyboard_events(window: &ApplicationWindow, state: Arc<Mutex<State>>) {
             std::process::exit(0);
         }
     });
+
     window.add_controller(keyboard_event);
 }
