@@ -8,7 +8,7 @@ pub const STYLES_CSS: &str = include_str!("../styles.css");
 
 pub fn update_entries(
     query: &str,
-       emojis: &[Emoji],
+    emojis: &[Emoji],
     entries_box: &MutexGuard<'_, gtk4::ListBox>,
 ) -> Vec<Emoji> {
     let tokens: Vec<&str> = query.split(" ").collect();
@@ -18,7 +18,12 @@ pub fn update_entries(
         .map(|emoji| {
             let mut rating = 0;
             for token in &tokens {
-                if emoji.name.to_lowercase().contains(&token.to_lowercase()) {
+                let name_lower = emoji.name.to_lowercase();
+                let token_lower = token.to_lowercase();
+
+                if name_lower == token_lower {
+                    rating = 999;
+                } else if name_lower.contains(&token_lower) {
                     rating += 1;
                 }
             }
@@ -43,8 +48,7 @@ pub fn update_entries(
             name = name.split_at(ui_options::MAX_EMOJI_NAME - 1).0.to_string() + "...";
         }
         let label = gtk4::Label::new(Some(&format!("{} - {}", emoji.1.emoji, name)));
-                   label.add_css_class("entry");
-      
+        label.add_css_class("entry");
 
         entries_box.append(&label);
 

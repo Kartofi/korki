@@ -2,6 +2,7 @@
   font-family: DepartureMono Nerd Font;
 
   --background-color: rgba(0, 0, 0, 0.85);
+
   --accent-color: #f2b35f;
   --font-color: white;
 
@@ -26,32 +27,32 @@
   border-radius: var(--border-radius);
 }
 .entries-box {
+  background-color: var(--background-color);
 }
+
 .entry {
   font-size: 17px;
 
   padding: 5px;
 
-  border-width: 2px;
-  border-style: solid;
-  border-color: transparent;
-}
-.entry-selected {
-  color: var(--accent-color);
-
-  font-size: 17px;
-
-  background-color: var(--background-color);
-
-  padding: 5px;
   margin-left: 10px;
   margin-right: 10px;
 
-  border-radius: 10px;
+  border-radius: 5px;
+
+  color: var(--accent-color);
+  background-color: var(--background-color);
 
   border-width: 2px;
   border-style: solid;
   border-color: var(--accent-color);
+}
+
+.entry::selected {
+  color: var(--accent-color);
+  background-color: var(--background-color);
+
+  margin: 13px;
 }
 .input-field {
   background-color: var(--background-color);

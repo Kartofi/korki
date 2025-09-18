@@ -173,10 +173,10 @@ fn keyboard_events(window: &ApplicationWindow, state: Arc<Mutex<State>>) {
             let index = if let Some(selected_row) = entries_box.selected_row() {
                 selected_row.index()
             } else {
-                -1
+                0
             };
 
-            if index == -1 {
+            if state.results.is_empty() {
                 return;
             }
 
