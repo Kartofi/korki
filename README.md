@@ -1,4 +1,4 @@
-Korki is a small and simple emoji that has almost all emoji
+Korki is a small and simple emoji picker that has almost all emojis.
 
 <img src="images/pic.png">
 
