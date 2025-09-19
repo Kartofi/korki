@@ -1,9 +1,0 @@
-[package]
-name = "korki"
-version = "1.0.5"
-edition = "2024"
-
-[dependencies]
-
-gtk4 = "0.10.0"
-gtk4-layer-shell = "0.6.3"
