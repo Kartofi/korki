@@ -5,8 +5,6 @@ pub struct State {
 
     pub results: Vec<Emoji>,
 
-
-
     pub emojis: Vec<Emoji>,
 
     pub recent_emojis: Vec<Emoji>,
@@ -19,12 +17,12 @@ impl State {
         State {
             query: "".to_string(),
             results: Vec::new(),
-           
+
             emojis: Vec::new(),
             recent_emojis: Vec::new(),
 
             entries_box: None,
-            text_box: None
+            text_box: None,
         }
     }
 }
@@ -43,6 +41,6 @@ impl Emoji {
         }
     }
     pub fn as_string(&self) -> String {
-       format!("{} {}", self.emoji, self.name)
+        format!("{} {}", self.emoji, self.name)
     }
 }
